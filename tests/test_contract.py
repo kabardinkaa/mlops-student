@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
 
 from src.churn_ml.api import CustomerFeatures, PredictionInput, app
+from src.churn_ml.training import load_params
 
 
 PREDICTION_PAYLOAD = {
@@ -41,7 +42,7 @@ def test_predict_returns_traceability_and_hybrid_prediction():
     assert body["review_analysis"]["sentiment"] == "negative"
     assert 0 <= body["review_analysis"]["negative_probability"] <= 1
     assert 0 <= body["churn_prediction"]["probability"] <= 1
-    assert body["churn_prediction"]["threshold"] == 0.5
+    assert body["churn_prediction"]["threshold"] == load_params()["training"]["threshold"]
 
 
 def test_health_exposes_service_and_model_versions():
