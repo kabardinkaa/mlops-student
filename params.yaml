@@ -6,4 +6,4 @@ training:
   test_size: 0.2
   random_state: 42
   model: logistic_regression
-  threshold: 0.5
+  threshold: 0.55
